@@ -1,0 +1,22 @@
+services:
+  spring-postgres-1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: springboot-container
+    hostname: spring-postgres-1
+    depends_on:
+      - database
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./.env.development
+
+  database:
+    image: "postgres:16.0-alpine3.18"
+    hostname: database
+    container_name: postgres-container
+    env_file:
+      - ./.env.development
+    ports:
+      - "5432:5432"
